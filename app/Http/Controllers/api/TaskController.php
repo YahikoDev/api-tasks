@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class TaskController extends Controller
 {
@@ -12,7 +14,10 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+
+        $user = auth()->user();
+        $tasks = Task::where('user_id', $user['id'])->get();
+        return response()->json(  $tasks );
     }
 
     /**

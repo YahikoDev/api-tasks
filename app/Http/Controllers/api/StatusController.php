@@ -4,15 +4,20 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-class Status extends Controller
+use App\Models\Status;
+use Illuminate\Http\JsonResponse;
+class StatusController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return response()->json([
+            'response' => true,
+            'message' => '',
+            'data' => Status::all()
+        ]);
     }
 
     /**

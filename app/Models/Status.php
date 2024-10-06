@@ -10,4 +10,9 @@ class Status extends Model
     use HasFactory;
 
     protected $table = 'statuses';
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

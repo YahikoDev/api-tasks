@@ -10,4 +10,9 @@ class Priority extends Model
     use HasFactory;
 
     protected $table = 'priorities';
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

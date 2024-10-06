@@ -3,16 +3,27 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Priority;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
-class Priority extends Controller
+class PriorityController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        try {
+            return response()->json([
+                'response' => true,
+                'message' => '',
+                'data' => Priority::all()
+            ]);
+        } catch (JWTException $e) {
+            return response()->json(['response' => false, 'memssage' => 'Invalid or empty token']);
+        }
     }
 
     /**
