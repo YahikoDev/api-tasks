@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TaskController extends Controller
+class Status extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**
