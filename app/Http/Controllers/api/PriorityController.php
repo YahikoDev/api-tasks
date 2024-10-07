@@ -10,19 +10,52 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class PriorityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
+        /**
+     * List Priorities
+     * @OA\Get (
+     *     path="/api/priority",
+     *     tags={"priority"},
+     *     security={{"bearer_token":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="response", type="boolean", example=true),
+     *              @OA\Property(property="messages", type="list", example="[...]"),
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(
+     *                      @OA\Property(property="id", type="number", example=1),
+     *                      @OA\Property(property="title", type="string", example="text"),
+     *                      @OA\Property(property="created_at", type="string", format="date-time", example="2023-02-23T12:33:45.000000Z"),
+     *                      @OA\Property(property="updated_at", type="string", format="date-time", example="2023-02-23T12:33:45.000000Z")
+     *                  )
+     *              )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=402,
+     *         description="Not found",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="response", type="boolean", example=false),
+     *              @OA\Property(property="messages", type="list", example="[...]"),
+     *              @OA\Property(property="data", type="list", example={}),
+     *          )
+     *     )
+     * )
      */
+
     public function index(): JsonResponse
     {
         try {
             return response()->json([
                 'response' => true,
-                'message' => '',
+                'message' => [],
                 'data' => Priority::all()
             ]);
         } catch (JWTException $e) {
-            return response()->json(['response' => false, 'memssage' => 'Invalid or empty token']);
+            return response()->json(['response' => false, 'memssage' => 'Invalid or empty token'], 402);
         }
     }
 

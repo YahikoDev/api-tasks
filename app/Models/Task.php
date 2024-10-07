@@ -19,4 +19,17 @@ class Task extends Model
         'id_priority',
         'id_user',
     ];
+
+    public function status(){
+        return $this->belongsTo(Status::class);
+    }
+
+    public function priority() {
+        return $this->belongsTo(Priority::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

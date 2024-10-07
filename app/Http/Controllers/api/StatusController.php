@@ -8,8 +8,40 @@ use App\Models\Status;
 use Illuminate\Http\JsonResponse;
 class StatusController extends Controller
 {
-    /**
-     * Display a listing of the resource.
+       /**
+     * List Status
+     * @OA\Get (
+     *     path="/api/status",
+     *     tags={"statuses"},
+     *     security={{"bearer_token":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="response", type="boolean", example=true),
+     *              @OA\Property(property="messages", type="list", example="[...]"),
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(
+     *                      @OA\Property(property="id", type="number", example=1),
+     *                      @OA\Property(property="title", type="string", example="text"),
+     *                      @OA\Property(property="created_at", type="string", format="date-time", example="2023-02-23T12:33:45.000000Z"),
+     *                      @OA\Property(property="updated_at", type="string", format="date-time", example="2023-02-23T12:33:45.000000Z")
+     *                  )
+     *              )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=402,
+     *         description="Not found",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="response", type="boolean", example=false),
+     *              @OA\Property(property="messages", type="list", example="[...]"),
+     *              @OA\Property(property="data", type="list", example={}),
+     *          )
+     *     )
+     * )
      */
     public function index()
     {

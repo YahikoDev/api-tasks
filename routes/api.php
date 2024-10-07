@@ -13,7 +13,7 @@ Route::group([
     Route::post('/signup', [AuthController::class, 'signup']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/user', function(){
+    Route::get('/user', function () {
         return auth()->user();
     });
 });
@@ -41,4 +41,19 @@ Route::group([
     Route::get('/{id}', [TaskController::class, 'show'])->middleware('auth:api');
     Route::put('/update/{id}', [TaskController::class, 'update'])->middleware('auth:api');
     Route::delete('/{id}', [TaskController::class, 'destroy'])->middleware('auth:api');
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'priority'
+], function () {
+    Route::get('/', [PriorityController::class, 'index'])->middleware('auth:api');
+});
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'status'
+], function () {
+    Route::get('/', [StatusController::class, 'index'])->middleware('auth:api');
 });
