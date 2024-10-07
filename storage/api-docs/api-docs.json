@@ -404,7 +404,7 @@
         "/api/status": {
             "get": {
                 "tags": [
-                    "priority"
+                    "statuses"
                 ],
                 "summary": "List Status",
                 "operationId": "bacf6d74f6743573fcea8ce5cb6fcc7a",
@@ -1134,6 +1134,10 @@
         {
             "name": "priority",
             "description": "priority"
+        },
+        {
+            "name": "statuses",
+            "description": "statuses"
         },
         {
             "name": "tasks",
