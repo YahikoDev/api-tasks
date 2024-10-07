@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 class TaskRequest extends FormRequest
 {
     /**
@@ -12,7 +12,7 @@ class TaskRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,8 @@ class TaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_status' => 'required|exits:statuses,id',
-            'id_priority' => 'required|exits:priorities,id',
+            'status' => 'required|exists:statuses,id',
+            'priority' => 'required|exists:priorities,id',
             'title' => 'string|min:2|max:20',
             'description' => 'max:500',
             'date_limit' => 'required',
@@ -38,7 +38,7 @@ class TaskRequest extends FormRequest
         throw new HttpResponseException(response()->json([
             'success' => false,
             'message' => 'Errores de validación',
-            'errors' => $errors
+            'errors' => $errors 
         ], 422));
     }
 }
