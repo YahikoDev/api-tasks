@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Events\SendEmailEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskRequest;
 use App\Models\Task;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class TaskController extends Controller
@@ -34,6 +34,8 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request): JsonResponse
     {
+
+        
         $user = auth()->user();
 
         try {
@@ -46,6 +48,10 @@ class TaskController extends Controller
                 'description' => $request['description'] ? $request['description'] : null,
                 'date_limit' => $request['date_limit']
             ]);
+
+            if($request['priority'] === 3){
+                SendEmailEvent::dispatch($task);
+            }
 
             if ($task) {
                 return response()->json([
@@ -74,8 +80,8 @@ class TaskController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-
         try {
+            
             $task = Task::where('id', $id)->first();
             return response()->json([
                 'response' => true,
@@ -120,6 +126,10 @@ class TaskController extends Controller
                 'description' => $request->input('description') ?: null,
                 'date_limit' => $request->input('date_limit')
             ]);
+
+            if($request->input('priority') === 3){
+                SendEmailEvent::dispatch($task);
+            }
 
             return response()->json([
                 'response' => true,
