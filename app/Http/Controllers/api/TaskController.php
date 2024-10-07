@@ -233,12 +233,12 @@ class TaskController extends Controller
     }
 
      /**
-     * Tasks update
-     * @OA\Put (
-     *     path="/api/tasks/update/{id}",
+     * Update task
+     * @OA\PUT (
+     *     path="/api/tasks/{id}",
      *     tags={"tasks"},
      *     security={{"bearer_token":{}}},
-     *  @OA\Parameter(
+     *     @OA\Parameter(
     *         name="id",
     *         in="path",
     *         required=true,
@@ -258,7 +258,7 @@ class TaskController extends Controller
      *       ),
      *  ),
      *     @OA\Response(
-     *         response=200,
+     *         response=201,
      *         description="OK",
      *         @OA\JsonContent(
      *              @OA\Property(property="response", type="boolean", example=true),
@@ -291,6 +291,7 @@ class TaskController extends Controller
      *     )
      * )
      */
+
     public function update(TaskRequest $request, int $id): JsonResponse
     {
         $user = auth()->user();
@@ -343,7 +344,7 @@ class TaskController extends Controller
      *     path="/api/tasks/{id}",
      *     tags={"tasks"},
      *     security={{"bearer_token":{}}},
-     * *  @OA\Parameter(
+     *   @OA\Parameter(
     *         name="id",
     *         in="path",
     *         required=true,

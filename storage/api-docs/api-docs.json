@@ -641,12 +641,12 @@
                     }
                 ]
             },
-            "delete": {
+            "put": {
                 "tags": [
                     "tasks"
                 ],
-                "summary": "Tasks delete",
-                "operationId": "7e4988b06e15632f7232aa3c60aedbed",
+                "summary": "Update task",
+                "operationId": "2ce5bce2c80b631f9fd23d8ef7048b57",
                 "parameters": [
                     {
                         "name": "id",
@@ -658,8 +658,41 @@
                         }
                     }
                 ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "status": {
+                                        "type": "number",
+                                        "example": 1
+                                    },
+                                    "priority": {
+                                        "type": "number",
+                                        "example": 1
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "New Task"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Task description"
+                                    },
+                                    "date_limit": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-10-15T14:30:00.000000Z"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "OK",
                         "content": {
                             "application/json": {
@@ -670,8 +703,8 @@
                                             "example": true
                                         },
                                         "messages": {
-                                            "type": "string",
-                                            "example": ""
+                                            "type": "list",
+                                            "example": "[...]"
                                         },
                                         "data": {
                                             "type": "array",
@@ -756,15 +789,13 @@
                         "bearer_token": []
                     }
                 ]
-            }
-        },
-        "/api/tasks/update/{id}": {
-            "put": {
+            },
+            "delete": {
                 "tags": [
                     "tasks"
                 ],
-                "summary": "Tasks update",
-                "operationId": "ff4d96d49bcfd083642a1b48e9692b92",
+                "summary": "Tasks delete",
+                "operationId": "7e4988b06e15632f7232aa3c60aedbed",
                 "parameters": [
                     {
                         "name": "id",
@@ -776,39 +807,6 @@
                         }
                     }
                 ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "status": {
-                                        "type": "number",
-                                        "example": 1
-                                    },
-                                    "priority": {
-                                        "type": "number",
-                                        "example": 1
-                                    },
-                                    "title": {
-                                        "type": "string",
-                                        "example": "New Task"
-                                    },
-                                    "description": {
-                                        "type": "string",
-                                        "example": "Task description"
-                                    },
-                                    "date_limit": {
-                                        "type": "string",
-                                        "format": "date-time",
-                                        "example": "2024-10-15T14:30:00.000000Z"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -821,8 +819,8 @@
                                             "example": true
                                         },
                                         "messages": {
-                                            "type": "list",
-                                            "example": "[...]"
+                                            "type": "string",
+                                            "example": ""
                                         },
                                         "data": {
                                             "type": "array",
