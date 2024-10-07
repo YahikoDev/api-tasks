@@ -1,0 +1,931 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API tasks",
+        "description": "Management tasks",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000/"
+        }
+    ],
+    "paths": {
+        "/api/auth/signup": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Signup user",
+                "operationId": "aaee79251c237baf5b28cd58be60b12a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "number",
+                                        "example": "text"
+                                    },
+                                    "email": {
+                                        "type": "number",
+                                        "example": "text"
+                                    },
+                                    "password": {
+                                        "type": "number",
+                                        "example": "text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "token": {
+                                                        "type": "string",
+                                                        "example": "text"
+                                                    },
+                                                    "user": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "number",
+                                                                    "example": 1
+                                                                },
+                                                                "name": {
+                                                                    "type": "string",
+                                                                    "example": "text"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string",
+                                                                    "example": "text"
+                                                                },
+                                                                "updated_at": {
+                                                                    "type": "string",
+                                                                    "format": "date-time",
+                                                                    "example": "2023-02-23T12:33:45.000000Z"
+                                                                },
+                                                                "created_at": {
+                                                                    "type": "string",
+                                                                    "format": "date-time",
+                                                                    "example": "2023-02-23T12:33:45.000000Z"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        },
+                                        "data": {
+                                            "type": "list",
+                                            "example": "[]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "login user",
+                "operationId": "4a16cbeb901087664661f8f8b3f4c012",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "number",
+                                        "example": "text"
+                                    },
+                                    "password": {
+                                        "type": "number",
+                                        "example": "text"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "text"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        },
+                                        "data": {
+                                            "type": "list",
+                                            "example": "[]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "logout user",
+                "operationId": "392b7d1309524bd8a5cb5272d91f6a5e",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks": {
+            "get": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "List Tasks by user",
+                "operationId": "5f4c89efc1b4ff38441eb44aa9b4e023",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_user": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_status": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_priority": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "text"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "text"
+                                                    },
+                                                    "date_limit": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        },
+                                        "data": {
+                                            "type": "list",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks/create": {
+            "post": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Tasks create",
+                "operationId": "1822fba8b80d191dc7d595eb47b4de52",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "status": {
+                                        "type": "number",
+                                        "example": 1
+                                    },
+                                    "priority": {
+                                        "type": "number",
+                                        "example": 1
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "New Task"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Task description"
+                                    },
+                                    "date_limit": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-10-15T14:30:00.000000Z"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_user": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_status": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_priority": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "text"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "text"
+                                                    },
+                                                    "date_limit": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        },
+                                        "data": {
+                                            "type": "list",
+                                            "example": "[]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks/{id}": {
+            "get": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Tasks show one",
+                "operationId": "1e12a7921f1c615075e2ba832eb2c558",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the task",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_user": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_status": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_priority": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "text"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "text"
+                                                    },
+                                                    "date_limit": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        },
+                                        "data": {
+                                            "type": "list",
+                                            "example": "[]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Tasks delete",
+                "operationId": "7e4988b06e15632f7232aa3c60aedbed",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the task",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "messages": {
+                                            "type": "string",
+                                            "example": ""
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_user": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_status": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_priority": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "text"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "text"
+                                                    },
+                                                    "date_limit": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        },
+                                        "data": {
+                                            "type": "list",
+                                            "example": "[]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks/update/{id}": {
+            "put": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Tasks update",
+                "operationId": "ff4d96d49bcfd083642a1b48e9692b92",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the task",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "status": {
+                                        "type": "number",
+                                        "example": 1
+                                    },
+                                    "priority": {
+                                        "type": "number",
+                                        "example": 1
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "New Task"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Task description"
+                                    },
+                                    "date_limit": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-10-15T14:30:00.000000Z"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_user": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_status": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "id_priority": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "text"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "text"
+                                                    },
+                                                    "date_limit": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "response": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "messages": {
+                                            "type": "list",
+                                            "example": "[...]"
+                                        },
+                                        "data": {
+                                            "type": "list",
+                                            "example": "[]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearer_token": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "auth",
+            "description": "auth"
+        },
+        {
+            "name": "tasks",
+            "description": "tasks"
+        }
+    ]
+}
