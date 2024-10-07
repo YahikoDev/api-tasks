@@ -27,7 +27,7 @@ class AuthController extends Controller
      *       ),
      *  ),
      *     @OA\Response(
-     *         response=200,
+     *         response=401,
      *         description="OK",
      *         @OA\JsonContent(
      *              @OA\Property(property="response", type="boolean", example=true),
@@ -66,17 +66,25 @@ class AuthController extends Controller
     public function signup(SignupRequest $request)
     {
         $request->validated();
+
+        $credentials = $request->only('email', 'password');
+
         $user = User::create([
             'name' => strtolower($request['name']),
             'email' => strtolower($request['email']),
             'password' => bcrypt($request['password']),
         ]);
 
+        if (!$token = $this->generaToken($credentials)) {
+            return response()->json(['response' => false, 'messages' => ['Unautorized']], 401);
+        }
+
         return response()->json([
             'messages' => ['User created'],
             'response' => true,
             'data' =>  [
-                'user' => $user
+                'token' => $token,
+                'user' => $user,
             ]
         ]);
     }
@@ -104,8 +112,8 @@ class AuthController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *         response=500,
-     *         description="Not found",
+     *         response=401,
+     *         description="Unautorized",
      *         @OA\JsonContent(
      *              @OA\Property(property="response", type="boolean", example=false),
      *              @OA\Property(property="messages", type="list", example="[...]"),
@@ -126,7 +134,7 @@ class AuthController extends Controller
             return response()->json(['response' => false, 'messages' => ['invalid_credentials']], 401);
         }
 
-        if (!$token = auth(guard: 'api')->attempt($credentials)) {
+        if (!$token = $this->generaToken($credentials)) {
             return response()->json(['response' => false, 'messages' => ['Unautorized']], 401);
         }
 
@@ -165,5 +173,12 @@ class AuthController extends Controller
         } catch (JWTException $e) {
             return response()->json(['response' => false, 'messages' => ['Invalid or empty token']], 500);
         }
+    }
+
+    protected function generaToken(array $data){
+        if (!$token = auth(guard: 'api')->attempt($data)) {
+            return '';
+        }
+        return $token;
     }
 }

@@ -84,7 +84,7 @@ class TaskController extends Controller
      *           @OA\Property(property="priority", type="number", example=1),
      *           @OA\Property(property="title", type="string", example="New Task"),
      *           @OA\Property(property="description", type="string", example="Task description"),
-     *           @OA\Property(property="date_limit", type="string", format="date-time", example="2024-10-15T14:30:00.000000Z")
+     *           @OA\Property(property="date_limit", type="string", format="date-time", example="2024-10-15")
      *       ),
      *  ),
      *     @OA\Response(
@@ -254,7 +254,7 @@ class TaskController extends Controller
      *           @OA\Property(property="priority", type="number", example=1),
      *           @OA\Property(property="title", type="string", example="New Task"),
      *           @OA\Property(property="description", type="string", example="Task description"),
-     *           @OA\Property(property="date_limit", type="string", format="date-time", example="2024-10-15T14:30:00.000000Z")
+     *           @OA\Property(property="date_limit", type="string", format="date-time", example="2024-10-15T")
      *       ),
      *  ),
      *     @OA\Response(

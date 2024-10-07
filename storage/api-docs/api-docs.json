@@ -43,7 +43,7 @@
                     }
                 },
                 "responses": {
-                    "200": {
+                    "401": {
                         "description": "OK",
                         "content": {
                             "application/json": {
@@ -189,8 +189,8 @@
                             }
                         }
                     },
-                    "500": {
-                        "description": "Not found",
+                    "401": {
+                        "description": "Unautorized",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -416,7 +416,7 @@
                                     "date_limit": {
                                         "type": "string",
                                         "format": "date-time",
-                                        "example": "2024-10-15T14:30:00.000000Z"
+                                        "example": "2024-10-15"
                                     }
                                 },
                                 "type": "object"
@@ -683,7 +683,7 @@
                                     "date_limit": {
                                         "type": "string",
                                         "format": "date-time",
-                                        "example": "2024-10-15T14:30:00.000000Z"
+                                        "example": "2024-10-15T"
                                     }
                                 },
                                 "type": "object"
