@@ -180,8 +180,46 @@
                                             "example": "[...]"
                                         },
                                         "data": {
-                                            "type": "string",
-                                            "example": "text"
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "token": {
+                                                        "type": "string",
+                                                        "example": "text"
+                                                    },
+                                                    "user": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "number",
+                                                                    "example": 1
+                                                                },
+                                                                "name": {
+                                                                    "type": "string",
+                                                                    "example": "text"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string",
+                                                                    "example": "text"
+                                                                },
+                                                                "updated_at": {
+                                                                    "type": "string",
+                                                                    "format": "date-time",
+                                                                    "example": "2023-02-23T12:33:45.000000Z"
+                                                                },
+                                                                "created_at": {
+                                                                    "type": "string",
+                                                                    "format": "date-time",
+                                                                    "example": "2023-02-23T12:33:45.000000Z"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
                                         }
                                     },
                                     "type": "object"

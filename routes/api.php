@@ -13,6 +13,9 @@ Route::group([
     Route::post('/signup', [AuthController::class, 'signup']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/user', function(){
+        return auth()->user();
+    });
 });
 
 Route::group([

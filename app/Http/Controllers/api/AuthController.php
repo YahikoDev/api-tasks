@@ -11,7 +11,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
-    
+
     /**
      * Signup user
      * @OA\Post (
@@ -108,7 +108,24 @@ class AuthController extends Controller
      *         @OA\JsonContent(
      *              @OA\Property(property="response", type="boolean", example=true),
      *              @OA\Property(property="messages", type="list", example="[...]"),
-     *              @OA\Property(property="data", type="string", example="text"),
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(
+     *                      @OA\Property(property="token", type="string", example="text"),
+     *                      @OA\Property(
+     *                          property="user",
+     *                          type="array",
+     *                          @OA\Items(
+     *                              @OA\Property(property="id", type="number", example=1),
+     *                              @OA\Property(property="name", type="string", example="text"),
+     *                              @OA\Property(property="email", type="string", example="text"),
+     *                              @OA\Property(property="updated_at", type="string", format="date-time", example="2023-02-23T12:33:45.000000Z"),
+     *                              @OA\Property(property="created_at", type="string", format="date-time", example="2023-02-23T12:33:45.000000Z"),
+     *                          )
+     *                      )
+     *                  )
+     *              )
      *         )
      *     ),
      *     @OA\Response(
@@ -138,10 +155,13 @@ class AuthController extends Controller
             return response()->json(['response' => false, 'messages' => ['Unautorized']], 401);
         }
 
-        return response()->json(['response' => true, 'messages' => [''], 'data' =>  $token], 200);
+        return response()->json(['response' => true, 'messages' => [''], 'data' =>  [
+            'token' => $token,
+            'user' => $user,
+        ]], 200);
     }
 
-/**
+    /**
      * logout user
      * @OA\Post (
      *     path="/api/auth/logout",
@@ -171,11 +191,12 @@ class AuthController extends Controller
             auth()->logout();
             return response()->json(['response' => true, 'messages' => ['User logout']]);
         } catch (JWTException $e) {
-            return response()->json(['response' => false, 'messages' => ['Invalid or empty token']], 500);
+            return response()->json(['response' => false, 'messages' => ['Invalid or empty token']], 422);
         }
     }
 
-    protected function generaToken(array $data){
+    protected function generaToken(array $data)
+    {
         if (!$token = auth(guard: 'api')->attempt($data)) {
             return '';
         }
