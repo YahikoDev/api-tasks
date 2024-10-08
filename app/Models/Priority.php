@@ -15,4 +15,9 @@ class Priority extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function task()
+    {
+        return $this->belongsTo(Task::class, 'priority_id');
+    }
 }

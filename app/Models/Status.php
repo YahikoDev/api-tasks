@@ -15,4 +15,9 @@ class Status extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'status_id'); // Relación inversa
+    }
 }

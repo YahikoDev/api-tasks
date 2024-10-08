@@ -13,9 +13,9 @@ class Statuses extends Seeder
     public function run(): void
     {
         DB::table('statuses')->insert([
-            ['title' => 'pendiente'],
-            ['title' => 'en progreso'],
-            ['title' => 'completada'],
+            ['title' => 'pending'],
+            ['title' => 'in progress'],
+            ['title' => 'compled'],
         ]);
     }
 }

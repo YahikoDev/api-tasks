@@ -21,15 +21,15 @@ class Task extends Model
     ];
 
     public function status(){
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(Status::class, 'id_status');
     }
 
     public function priority() {
-        return $this->belongsTo(Priority::class);
+        return $this->belongsTo(Priority::class,'id_priority');
     }
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class,'id_user');
     }
 }

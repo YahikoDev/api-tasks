@@ -492,65 +492,111 @@
                 "tags": [
                     "tasks"
                 ],
-                "summary": "List Tasks by user",
+                "summary": "Retrieve a list of tasks for the authenticated user.",
+                "description": "This endpoint returns a list of tasks along with their details, including status and priority.",
                 "operationId": "5f4c89efc1b4ff38441eb44aa9b4e023",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "Successfully retrieved tasks.",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "response": {
+                                            "description": "Indicates whether the request was successful.",
                                             "type": "boolean",
                                             "example": true
                                         },
                                         "messages": {
-                                            "type": "list",
-                                            "example": "[...]"
+                                            "type": "array",
+                                            "items": {
+                                                "description": "An array of messages related to the request.",
+                                                "type": "string",
+                                                "example": ""
+                                            }
                                         },
                                         "data": {
                                             "type": "array",
                                             "items": {
                                                 "properties": {
                                                     "id": {
-                                                        "type": "number",
+                                                        "description": "Unique identifier for the task.",
+                                                        "type": "integer",
                                                         "example": 1
                                                     },
                                                     "id_user": {
-                                                        "type": "number",
+                                                        "description": "Identifier of the user who owns the task.",
+                                                        "type": "integer",
                                                         "example": 1
                                                     },
                                                     "id_status": {
-                                                        "type": "number",
-                                                        "example": 1
+                                                        "description": "Identifier for the task's status.",
+                                                        "type": "integer",
+                                                        "example": 3
                                                     },
                                                     "id_priority": {
-                                                        "type": "number",
-                                                        "example": 1
+                                                        "description": "Identifier for the task's priority.",
+                                                        "type": "integer",
+                                                        "example": 3
                                                     },
                                                     "title": {
+                                                        "description": "Title of the task.",
                                                         "type": "string",
-                                                        "example": "text"
+                                                        "example": "pruebas"
                                                     },
                                                     "description": {
+                                                        "description": "Detailed description of the task. Can be null.",
                                                         "type": "string",
-                                                        "example": "text"
+                                                        "example": null,
+                                                        "nullable": true
                                                     },
                                                     "date_limit": {
+                                                        "description": "Deadline for the task.",
                                                         "type": "string",
                                                         "format": "date-time",
-                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                        "example": "2024-10-06 23:01:15"
                                                     },
                                                     "created_at": {
+                                                        "description": "Timestamp when the task was created.",
                                                         "type": "string",
                                                         "format": "date-time",
-                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                        "example": "2024-10-07T23:28:22.000000Z"
                                                     },
                                                     "updated_at": {
+                                                        "description": "Timestamp when the task was last updated.",
                                                         "type": "string",
                                                         "format": "date-time",
-                                                        "example": "2023-02-23T12:33:45.000000Z"
+                                                        "example": "2024-10-07T23:28:22.000000Z"
+                                                    },
+                                                    "status": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "Unique identifier for the task's status.",
+                                                                "type": "integer",
+                                                                "example": 3
+                                                            },
+                                                            "title": {
+                                                                "description": "Title of the status.",
+                                                                "type": "string",
+                                                                "example": "completada"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "priority": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "Unique identifier for the task's priority.",
+                                                                "type": "integer",
+                                                                "example": 3
+                                                            },
+                                                            "title": {
+                                                                "description": "Title of the priority.",
+                                                                "type": "string",
+                                                                "example": "alta"
+                                                            }
+                                                        },
+                                                        "type": "object"
                                                     }
                                                 },
                                                 "type": "object"
@@ -563,21 +609,25 @@
                         }
                     },
                     "500": {
-                        "description": "Not found",
+                        "description": "Internal server error.",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "response": {
+                                            "description": "Indicates whether the request was unsuccessful.",
                                             "type": "boolean",
                                             "example": false
                                         },
                                         "messages": {
-                                            "type": "list",
-                                            "example": "[...]"
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "An error occurred."
+                                            }
                                         },
                                         "data": {
-                                            "type": "list",
+                                            "type": "object",
                                             "example": []
                                         }
                                     },
@@ -739,80 +789,124 @@
                 "tags": [
                     "tasks"
                 ],
-                "summary": "Tasks show one",
+                "summary": "Retrieve a task by its ID.",
+                "description": "This endpoint returns details of a specific task identified by its unique ID, including status and priority.",
                 "operationId": "1e12a7921f1c615075e2ba832eb2c558",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID of the task",
+                        "description": "Unique identifier of the task to retrieve.",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example": 1
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "Successfully retrieved the task.",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "response": {
+                                            "description": "Indicates whether the request was successful.",
                                             "type": "boolean",
                                             "example": true
                                         },
                                         "messages": {
-                                            "type": "list",
-                                            "example": "[...]"
-                                        },
-                                        "data": {
                                             "type": "array",
                                             "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "number",
-                                                        "example": 1
-                                                    },
-                                                    "id_user": {
-                                                        "type": "number",
-                                                        "example": 1
-                                                    },
-                                                    "id_status": {
-                                                        "type": "number",
-                                                        "example": 1
-                                                    },
-                                                    "id_priority": {
-                                                        "type": "number",
-                                                        "example": 1
-                                                    },
-                                                    "title": {
-                                                        "type": "string",
-                                                        "example": "text"
-                                                    },
-                                                    "description": {
-                                                        "type": "string",
-                                                        "example": "text"
-                                                    },
-                                                    "date_limit": {
-                                                        "type": "string",
-                                                        "format": "date-time",
-                                                        "example": "2023-02-23T12:33:45.000000Z"
-                                                    },
-                                                    "created_at": {
-                                                        "type": "string",
-                                                        "format": "date-time",
-                                                        "example": "2023-02-23T12:33:45.000000Z"
-                                                    },
-                                                    "updated_at": {
-                                                        "type": "string",
-                                                        "format": "date-time",
-                                                        "example": "2023-02-23T12:33:45.000000Z"
-                                                    }
-                                                },
-                                                "type": "object"
+                                                "description": "An array of messages related to the request.",
+                                                "type": "string",
+                                                "example": ""
                                             }
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "description": "Unique identifier for the task.",
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_user": {
+                                                    "description": "Identifier of the user who owns the task.",
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "id_status": {
+                                                    "description": "Identifier for the task's status.",
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "id_priority": {
+                                                    "description": "Identifier for the task's priority.",
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "title": {
+                                                    "description": "Title of the task.",
+                                                    "type": "string",
+                                                    "example": "pruebas"
+                                                },
+                                                "description": {
+                                                    "description": "Detailed description of the task. Can be null.",
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "date_limit": {
+                                                    "description": "Deadline for the task.",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-10-06 23:01:15"
+                                                },
+                                                "created_at": {
+                                                    "description": "Timestamp when the task was created.",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-10-07T23:28:22.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "description": "Timestamp when the task was last updated.",
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-10-07T23:28:22.000000Z"
+                                                },
+                                                "status": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "description": "Unique identifier for the task's status.",
+                                                            "type": "integer",
+                                                            "example": 3
+                                                        },
+                                                        "title": {
+                                                            "description": "Title of the status.",
+                                                            "type": "string",
+                                                            "example": "completada"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "priority": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "description": "Unique identifier for the task's priority.",
+                                                            "type": "integer",
+                                                            "example": 3
+                                                        },
+                                                        "title": {
+                                                            "description": "Title of the priority.",
+                                                            "type": "string",
+                                                            "example": "alta"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -820,23 +914,27 @@
                             }
                         }
                     },
-                    "500": {
-                        "description": "Not found",
+                    "404": {
+                        "description": "Task not found.",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "response": {
+                                            "description": "Indicates whether the request was unsuccessful.",
                                             "type": "boolean",
                                             "example": false
                                         },
                                         "messages": {
-                                            "type": "list",
-                                            "example": "[...]"
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "Task not found."
+                                            }
                                         },
                                         "data": {
-                                            "type": "list",
-                                            "example": "[]"
+                                            "type": "object",
+                                            "example": []
                                         }
                                     },
                                     "type": "object"
