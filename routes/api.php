@@ -4,56 +4,41 @@ use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\PriorityController;
 use App\Http\Controllers\api\StatusController;
 use App\Http\Controllers\api\TaskController;
+use App\Http\Middleware\JwtMiddleware;
 use Illuminate\Support\Facades\Route;
 
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'auth'
-], function () {
-    Route::post('/signup', [AuthController::class, 'signup']);
-    Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware([JwtMiddleware::class])->prefix('auth')->group(function () {
+    Route::post('/signup', [AuthController::class, 'signup'])->withoutMiddleware(JwtMiddleware::class);
+    Route::post('/login', [AuthController::class, 'login'])->withoutMiddleware(JwtMiddleware::class);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', function () {
         return auth()->user();
     });
 });
 
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'priority'
-], function () {
-    Route::get('/', [PriorityController::class, 'index'])->middleware('auth:api');
+Route::middleware([JwtMiddleware::class])->prefix('priority')->group(function () {
+    Route::get('/', [PriorityController::class, 'index']);
 });
 
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'status'
-], function () {
-    Route::get('/', [StatusController::class, 'index'])->middleware('auth:api');
-});
-
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'tasks'
-], function () {
-    Route::get('/', [TaskController::class, 'index'])->middleware('auth:api');
-    Route::post('/create', [TaskController::class, 'store'])->middleware('auth:api');
-    Route::get('/{id}', [TaskController::class, 'show'])->middleware('auth:api');
-    Route::put('/update/{id}', [TaskController::class, 'update'])->middleware('auth:api');
-    Route::delete('/{id}', [TaskController::class, 'destroy'])->middleware('auth:api');
-});
-
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'priority'
-], function () {
-    Route::get('/', [PriorityController::class, 'index'])->middleware('auth:api');
+Route::middleware([JwtMiddleware::class])->prefix('status')->group(function () {
+    Route::get('/', [StatusController::class, 'index']);
 });
 
 
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'status'
-], function () {
-    Route::get('/', [StatusController::class, 'index'])->middleware('auth:api');
+Route::middleware([JwtMiddleware::class])->prefix('tasks')->group(function () {
+    Route::get('/', [TaskController::class, 'index']);
+    Route::post('/create', [TaskController::class, 'store']);
+    Route::get('/{id}', [TaskController::class, 'show']);
+    Route::put('/update/{id}', [TaskController::class, 'update']);
+    Route::delete('/{id}', [TaskController::class, 'destroy']);
 });
+
+Route::middleware([JwtMiddleware::class])->prefix('tasks')->group(function () {
+    Route::get('/', [TaskController::class, 'index']);
+    Route::post('/create', [TaskController::class, 'store']);
+    Route::get('/{id}', [TaskController::class, 'show']);
+    Route::put('/update/{id}', [TaskController::class, 'update']);
+    Route::delete('/{id}', [TaskController::class, 'destroy']);
+});
+
