@@ -65,12 +65,11 @@ class TaskController extends Controller
  * )
  */
 
-
     public function index(): JsonResponse
     {
         try {
             $user = auth()->user();
-            $tasks = Task::where('id_user', $user['id'])->with('status')->with('priority')->get();
+            $tasks = Task::where('id_user', $user['id'])->with('status')->with('priority')->paginate(5);
             return response()->json([
                 'response' => true,
                 'messages' => [],
@@ -137,8 +136,6 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request): JsonResponse
     {
-
-
         $user = auth()->user();
 
         try {
