@@ -27,7 +27,7 @@ class TaskRequest extends FormRequest
             'priority' => 'required|exists:priorities,id',
             'title' => 'string|min:2|max:20',
             'description' => 'max:500',
-            'date_limit' => 'required',
+            'date_limit' => 'required|date|after:now',
         ];
     }
 
@@ -36,9 +36,8 @@ class TaskRequest extends FormRequest
         $errors = $validator->errors()->all();
 
         throw new HttpResponseException(response()->json([
-            'success' => false,
-            'message' => 'Errores de validación',
-            'errors' => $errors 
+            'response' => false,
+            'messages' => $errors
         ], 422));
     }
 }
